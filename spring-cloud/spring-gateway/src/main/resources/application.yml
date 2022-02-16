@@ -1,0 +1,40 @@
+server:
+  port: 10000
+
+
+logging:
+  level:
+    org.springframework.cloud.consul: DEBUG
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+    gateway:
+      routes:
+      - id: user
+        uri: lb://consul-demo-consumer
+        order: 1000
+        predicates:
+          - Path=/users/**
+        filters:
+        - StripPrefix=1
+      - id: products
+        uri: lb://vertx-service
+        order: 1000
+        predicates:
+        - Path=/products/**
+        filters:
+        - StripPrefix=1
+
+  zipkin:
+    enabled: true
+    sender:
+      type: web
+    base-url:  http://127.0.0.1:9411
+  sleuth:
+    sampler:
+      probability: 1.0

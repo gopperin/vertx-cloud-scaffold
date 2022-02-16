@@ -1,0 +1,15 @@
+{
+  "port": 18000,
+  "discovery": {
+    "host": "127.0.0.1",
+    "port": 8500,
+    "health": "http://192.168.31.80:18000/health"
+  },
+  "datasource": {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "db_name": "xserver",
+    "user": "root",
+    "password": "yiyun88"
+  }
+}

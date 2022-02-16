@@ -1,0 +1,45 @@
+server:
+  port: 10001
+
+
+logging:
+  level:
+    org.springframework.cloud.consul: DEBUG
+
+spring:
+  application:
+    name: consul-demo-consumer
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        serviceName: ${spring.application.name}
+    stream:
+      rocketmq:
+        binder:
+          name-server: 192.168.241.134:9876
+      bindings:
+        input:
+          destination: test-topic
+          content-type: application/json
+          group: test-group
+          consumer:
+            tags: test-tag
+            orderly: false
+        input1:
+          destination: test-topic
+          content-type: application/json
+          group: test-group1
+          consumer:
+            orderly: true
+            concurrency: 20
+  zipkin:
+    enabled: true
+    sender:
+      type: web
+    base-url:  http://192.168.241.134:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+

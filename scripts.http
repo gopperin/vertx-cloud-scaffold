@@ -1,0 +1,30 @@
+
+### vertx products
+GET http://127.0.0.1:18000/products
+
+### vertx -> spring -> users
+GET http://127.0.0.1:18000/users
+
+### spring -> list
+GET http://127.0.0.1:10001/user/list
+
+### spring -> vertx -> products
+GET http://127.0.0.1:10001/user/products
+
+####################################################3
+####################################################3
+########### gateway 
+####################################################3
+####################################################3
+
+### vertx products
+GET http://127.0.0.1:10000/products/products
+
+### vertx -> spring -> users
+GET http://127.0.0.1:10000/products/users
+
+### spring -> list
+GET http://127.0.0.1:10000/users/user/list
+
+### spring -> vertx -> products
+GET http://127.0.0.1:10000/users/user/products
