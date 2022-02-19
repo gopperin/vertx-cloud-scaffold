@@ -121,13 +121,14 @@ public class ProductVerticle extends AbstractVerticle {
                     .setHttp(discoveryConfig.getString("health"))
                     .setInterval("5s");
 
+            Integer port = conf.result().getInteger("port");
             ServiceOptions opts = new ServiceOptions()
                     .setName("vertx-service")
-                    .setId("serviceId")
-                    .setTags(Arrays.asList("tag1", "tag2"))
+                    .setId("serviceId" + port)
+                    .setTags(Arrays.asList("tag", "port" + port))
                     .setCheckOptions(optsCheck)
                     .setAddress("127.0.0.1")
-                    .setPort(18000);
+                    .setPort(port);
 
             consulClient.registerService(opts, res -> {
                 if (res.succeeded()) {

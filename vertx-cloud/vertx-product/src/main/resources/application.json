@@ -1,9 +1,9 @@
 {
-  "port": 18000,
+  "port": 18001,
   "discovery": {
     "host": "127.0.0.1",
     "port": 8500,
-    "health": "http://192.168.31.80:18000/health"
+    "health": "http://192.168.31.80:18001/health"
   },
   "datasource": {
     "host": "127.0.0.1",

@@ -1,9 +1,9 @@
 
 ### vertx products
-GET http://127.0.0.1:18000/products
+GET http://127.0.0.1:18001/products
 
 ### vertx -> spring -> users
-GET http://127.0.0.1:18000/users
+GET http://127.0.0.1:18001/users
 
 ### spring -> list
 GET http://127.0.0.1:10001/user/list
@@ -28,3 +28,6 @@ GET http://127.0.0.1:10000/users/user/list
 
 ### spring -> vertx -> products
 GET http://127.0.0.1:10000/users/user/products
+
+### 清除consul 服务
+PUT http://127.0.0.1:8500/v1/agent/service/deregister/serviceId18001
