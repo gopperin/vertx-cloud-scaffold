@@ -12,9 +12,5 @@
         <module name="vertx-product" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="common" target="8" />
-      <module name="user" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

@@ -6,7 +6,7 @@ GET http://127.0.0.1:18001/products
 GET http://127.0.0.1:18001/users
 
 ### spring -> list
-GET http://127.0.0.1:10001/user/list
+GET http://127.0.0.1:10002/user/list
 
 ### spring -> vertx -> products
 GET http://127.0.0.1:10001/user/products

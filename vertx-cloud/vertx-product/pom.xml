@@ -68,18 +68,30 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-mysql-client</artifactId>
-            <version>4.2.4</version>
+            <version>${vertx.version}</version>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-sql-client-templates</artifactId>
-            <version>4.2.4</version>
+            <version>${vertx.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-consul-client</artifactId>
-            <version>4.2.4</version>
+            <version>${vertx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-service-discovery</artifactId>
+            <version>${vertx.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.vertx/vertx-service-discovery-bridge-consul -->
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-service-discovery-bridge-consul</artifactId>
+            <version>${vertx.version}</version>
         </dependency>
 
         <dependency>

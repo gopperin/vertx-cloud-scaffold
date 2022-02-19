@@ -54,6 +54,7 @@ public class ProductVerticle extends AbstractVerticle {
     private Pool pool;
     private WebClient webClient;
     private ConsulClient consulClient;
+    //    private ServiceDiscovery discovery;
     private SqlTemplate<Map<String, Object>, RowSet<JsonObject>> getProductTmpl;
     private SqlTemplate<JsonObject, SqlResult<Void>> addProductTmpl;
 
@@ -64,32 +65,21 @@ public class ProductVerticle extends AbstractVerticle {
         ConfigRetriever retriever = ConfigRetriever.create(vertx, new ConfigRetrieverOptions().addStore(file));
         retriever.getConfig(conf -> {
 
+            // setup 数据库
             JsonObject dbConfig = conf.result().getJsonObject("datasource");
+            setUpDatabase(dbConfig);
 
-            MySQLConnectOptions options = new MySQLConnectOptions()
-                    .setPort(dbConfig.getInteger("port"))
-                    .setHost(dbConfig.getString("host"))
-                    .setDatabase(dbConfig.getString("db_name"))
-                    .setUser(dbConfig.getString("user"))
-                    .setPassword(dbConfig.getString("password"));
+            // setup WebClient
+            setUpWebClient();
 
-            pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
+            // 注册为consul服务
+            String serviceAddress = "127.0.0.1";
+            Integer servicePort = conf.result().getInteger("port");
+            JsonObject discoveryConfig = conf.result().getJsonObject("discovery");
+            setUpConsul(serviceAddress, servicePort, discoveryConfig);
 
-            getProductTmpl = SqlTemplate
-                    .forQuery(pool, "SELECT id, nick_name, price, weight FROM products where id = #{id} LIMIT 1")
-                    .mapTo(Row::toJson);
-
-            addProductTmpl = SqlTemplate
-                    .forUpdate(pool, "INSERT INTO products (nick_name, price, weight) VALUES (#{name}, #{price}, #{weight})")
-                    .mapFrom(TupleMapper.jsonObject());
-
+            // 注册router
             Handler<RoutingContext> getHealthRoute = ProductVerticle.this::handleGetHealth;
-
-            // 创建WebClient，用于发送HTTP或者HTTPS请求
-            WebClientOptions webClientOptions = new WebClientOptions()
-                    .setConnectTimeout(500); // ms
-
-            webClient = WebClient.create(vertx, webClientOptions);
 
             Handler<RoutingContext> listUsersRoute = ProductVerticle.this::handleListUsers;
 
@@ -108,35 +98,6 @@ public class ProductVerticle extends AbstractVerticle {
             router.get("/products/:productID").handler(getProductRoute);
             router.post("/products").handler(addProductRoute);
             router.get("/products").handler(listProductsRoute);
-
-            JsonObject discoveryConfig = conf.result().getJsonObject("discovery");
-
-            ConsulClientOptions optConsul = new ConsulClientOptions()
-                    .setHost(discoveryConfig.getString("host"))
-                    .setPort(discoveryConfig.getInteger("port"));
-
-            consulClient = ConsulClient.create(vertx, optConsul);
-
-            CheckOptions optsCheck = new CheckOptions()
-                    .setHttp(discoveryConfig.getString("health"))
-                    .setInterval("5s");
-
-            Integer port = conf.result().getInteger("port");
-            ServiceOptions opts = new ServiceOptions()
-                    .setName("vertx-service")
-                    .setId("serviceId" + port)
-                    .setTags(Arrays.asList("tag", "port" + port))
-                    .setCheckOptions(optsCheck)
-                    .setAddress("127.0.0.1")
-                    .setPort(port);
-
-            consulClient.registerService(opts, res -> {
-                if (res.succeeded()) {
-                    System.out.println("VertxService successfully registered");
-                } else {
-                    res.cause().printStackTrace();
-                }
-            });
 
             vertx.createHttpServer().requestHandler(router).listen(conf.result().getInteger("port"));
         });
@@ -170,6 +131,30 @@ public class ProductVerticle extends AbstractVerticle {
 
         HttpServerResponse response = routingContext.response();
 
+        // 使用descovery获取Record
+//        discovery.getRecord(new JsonObject().put("name", "consul-demo-consumer"), ar1 -> {
+//
+//            if (ar1.succeeded() && ar1.result() != null) {
+//                System.out.println("=============" + ar1.result());
+//                //                // 以get方式请求远程地址
+//                webClient.get(ar1.result().getLocation().getInteger("port"), ar1.result().getLocation().getString("host"), "/user/list")
+//                        .putHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0")
+//                        .addQueryParam("username", "admin")
+//                        .send(handle -> {
+//                            // 处理响应的结果
+//                            if (handle.succeeded()) {
+//                                // 这里拿到的结果就是一个HTML文本，直接打印出来
+//                                String body = handle.result().bodyAsString();
+//                                System.out.println(body);
+//                                response
+//                                        .putHeader("content-type", "application/json")
+//                                        .end(body);
+//                            }
+//                        });
+//            }
+//        });
+
+        //use consul client get services
         consulClient.healthServiceNodes("consul-demo-consumer", true, res -> {
             if (res.succeeded()) {
                 System.out.println("found " + res.result().getList().size() + " services");
@@ -274,4 +259,83 @@ public class ProductVerticle extends AbstractVerticle {
         });
     }
 
+    /**
+     * setUp database
+     *
+     * @param dbConfig
+     */
+    private void setUpDatabase(JsonObject dbConfig) {
+        MySQLConnectOptions options = new MySQLConnectOptions()
+                .setPort(dbConfig.getInteger("port"))
+                .setHost(dbConfig.getString("host"))
+                .setDatabase(dbConfig.getString("db_name"))
+                .setUser(dbConfig.getString("user"))
+                .setPassword(dbConfig.getString("password"));
+
+        pool = Pool.pool(vertx, options, new PoolOptions().setMaxSize(4));
+
+        getProductTmpl = SqlTemplate
+                .forQuery(pool, "SELECT id, nick_name, price, weight FROM products where id = #{id} LIMIT 1")
+                .mapTo(Row::toJson);
+
+        addProductTmpl = SqlTemplate
+                .forUpdate(pool, "INSERT INTO products (nick_name, price, weight) VALUES (#{name}, #{price}, #{weight})")
+                .mapFrom(TupleMapper.jsonObject());
+
+    }
+
+    /**
+     * setUp consul 服务
+     *
+     * @param serviceAddress
+     * @param servicePort
+     * @param discoveryConfig
+     */
+    private void setUpConsul(String serviceAddress, Integer servicePort, JsonObject discoveryConfig) {
+        ConsulClientOptions optConsul = new ConsulClientOptions()
+                .setHost(discoveryConfig.getString("host"))
+                .setPort(discoveryConfig.getInteger("port"));
+
+        consulClient = ConsulClient.create(vertx, optConsul);
+
+        CheckOptions optsCheck = new CheckOptions()
+                .setHttp(discoveryConfig.getString("health"))
+                .setInterval("5s");
+
+
+        ServiceOptions opts = new ServiceOptions()
+                .setName(discoveryConfig.getString("serviceName"))
+                .setId("serviceId" + servicePort)
+                .setTags(Arrays.asList("tag", "port" + servicePort))
+                .setCheckOptions(optsCheck)
+                .setAddress(serviceAddress)
+                .setPort(servicePort);
+
+        consulClient.registerService(opts, res -> {
+            if (res.succeeded()) {
+                System.out.println("VertxService successfully registered");
+            } else {
+                res.cause().printStackTrace();
+            }
+        });
+
+        // 使用discovery机制
+//            discovery = ServiceDiscovery.create(vertx);
+//            discovery.registerServiceImporter(new ConsulServiceImporter(),
+//                    new JsonObject()
+//                            .put("host", "localhost")
+//                            .put("port", 8500)
+//                            .put("scan-period", 2000));
+    }
+
+    /**
+     * setUp WebClient
+     */
+    private void setUpWebClient() {
+        // 创建WebClient，用于发送HTTP或者HTTPS请求
+        WebClientOptions webClientOptions = new WebClientOptions()
+                .setConnectTimeout(5000); // ms
+
+        webClient = WebClient.create(vertx, webClientOptions);
+    }
 }
