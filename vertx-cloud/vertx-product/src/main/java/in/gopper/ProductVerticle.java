@@ -4,6 +4,8 @@ import io.vertx.config.ConfigRetriever;
 import io.vertx.config.ConfigRetrieverOptions;
 import io.vertx.config.ConfigStoreOptions;
 import io.vertx.core.*;
+import io.vertx.core.http.HttpMethod;
+import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -12,7 +14,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.WebClientOptions;
-import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.mysqlclient.MySQLConnectOptions;
 import io.vertx.sqlclient.*;
 import io.vertx.sqlclient.templates.SqlTemplate;
@@ -32,7 +34,7 @@ public class ProductVerticle extends AbstractVerticle {
 
     public static void main(String[] args) {
 
-        Vertx vertx = Vertx.vertx();
+        Vertx vertx = Vertx.vertx(new VertxOptions().setWorkerPoolSize(40));
 
         vertx.deployVerticle(new ProductVerticle(), new Handler<AsyncResult<String>>() {
 
@@ -55,6 +57,7 @@ public class ProductVerticle extends AbstractVerticle {
     private WebClient webClient;
     private ConsulClient consulClient;
     //    private ServiceDiscovery discovery;
+    private HttpServer server;
     private SqlTemplate<Map<String, Object>, RowSet<JsonObject>> getProductTmpl;
     private SqlTemplate<JsonObject, SqlResult<Void>> addProductTmpl;
 
@@ -89,7 +92,7 @@ public class ProductVerticle extends AbstractVerticle {
 
             Router router = Router.router(vertx);
 
-            router.route().handler(BodyHandler.create());
+            router.route().handler(CorsHandler.create("*").allowedHeaders(allowedHeaders()).allowedMethods(allowedMethods()));
 
             router.get("/health").handler(getHealthRoute);
 
@@ -99,24 +102,32 @@ public class ProductVerticle extends AbstractVerticle {
             router.post("/products").handler(addProductRoute);
             router.get("/products").handler(listProductsRoute);
 
-            vertx.createHttpServer().requestHandler(router).listen(conf.result().getInteger("port"));
+            server = vertx.createHttpServer();
+            server.requestHandler(router);
+            server.listen(conf.result().getInteger("port"), res -> {
+                if (res.succeeded()) {
+                    startPromise.complete();
+                } else {
+                    startPromise.fail(res.cause());
+                }
+            });
+
         });
 
     }
 
     @Override
-    public void stop() throws Exception {
-
-        System.out.println("deregisterService");
+    public void stop(Promise<Void> stopPromise) {
+        System.out.println("ProductVerticle.stop (async)");
 
         consulClient.deregisterService("serviceId", res -> {
             if (res.succeeded()) {
                 System.out.println("Service successfully deregistered");
             } else {
+                System.out.println("Service error deregistered");
                 res.cause().printStackTrace();
             }
         });
-
     }
 
     private void handleGetHealth(RoutingContext routingContext) {
@@ -204,7 +215,8 @@ public class ProductVerticle extends AbstractVerticle {
                 String rep = new JsonObject().put("status", "UP").toString();
                 response
                         .putHeader("content-type", "application/json")
-                        .end(rep);
+                        .write(rep);
+                response.end();
             }
         });
 
@@ -332,10 +344,47 @@ public class ProductVerticle extends AbstractVerticle {
      * setUp WebClient
      */
     private void setUpWebClient() {
-        // 创建WebClient，用于发送HTTP或者HTTPS请求
+        // 创建WebClient，用于发送HTTP或者HTTPS请求,ms
         WebClientOptions webClientOptions = new WebClientOptions()
-                .setConnectTimeout(5000); // ms
+                .setConnectTimeout(5000);
 
         webClient = WebClient.create(vertx, webClientOptions);
+    }
+
+    /**
+     * cors allowed headers
+     *
+     * @return
+     */
+    private Set<String> allowedHeaders() {
+
+        Set<String> allowedHeaders = new HashSet<>();
+        allowedHeaders.add("x-requested-with");
+        allowedHeaders.add("Access-Control-Allow-Origin");
+        allowedHeaders.add("origin");
+        allowedHeaders.add("Content-Type");
+        allowedHeaders.add("accept");
+        allowedHeaders.add("X-PINGARUNER");
+
+        return allowedHeaders;
+    }
+
+    /**
+     * cors allowed methods
+     *
+     * @return
+     */
+    private Set<HttpMethod> allowedMethods() {
+        Set<HttpMethod> allowedMethods = new HashSet<>();
+
+        allowedMethods.add(HttpMethod.GET);
+        allowedMethods.add(HttpMethod.POST);
+        allowedMethods.add(HttpMethod.OPTIONS);
+
+        allowedMethods.add(HttpMethod.DELETE);
+        allowedMethods.add(HttpMethod.PATCH);
+        allowedMethods.add(HttpMethod.PUT);
+
+        return allowedMethods;
     }
 }

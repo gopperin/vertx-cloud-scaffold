@@ -30,4 +30,4 @@ GET http://127.0.0.1:10000/users/user/list
 GET http://127.0.0.1:10000/users/user/products
 
 ### 清除consul 服务
-PUT http://127.0.0.1:8500/v1/agent/service/deregister/serviceId18001
+PUT http://127.0.0.1:8500/v1/agent/service/deregister/consul-demo-consumer-10001
