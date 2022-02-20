@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cf366bb6-a0ac-4317-be38-bb2033aa403e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts.http" beforeDir="false" afterPath="$PROJECT_DIR$/scripts.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vertx-cloud/vertx-product/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/vertx-cloud/vertx-product/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java" afterDir="false" />
-    </list>
+    <list default="true" id="cf366bb6-a0ac-4317-be38-bb2033aa403e" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/spring-cloud/spring-consumer/target/" />
     <ignored path="$PROJECT_DIR$/vertx-cloud/target/" />
     <ignored path="$PROJECT_DIR$/vertx-cloud/vertx-product/target/" />
@@ -73,8 +68,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="59" column="30" lean-forward="true" selection-start-line="59" selection-start-column="30" selection-end-line="59" selection-end-column="30" />
+            <state relative-caret-position="-140">
+              <caret line="54" selection-start-line="54" selection-end-line="54" />
             </state>
           </provider>
         </entry>
@@ -83,7 +78,7 @@
         <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="795">
-              <caret line="65" column="21" lean-forward="true" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
+              <caret line="65" column="21" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -413,14 +408,14 @@
     <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="795">
-          <caret line="65" column="21" lean-forward="true" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
+          <caret line="65" column="21" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="59" column="30" lean-forward="true" selection-start-line="59" selection-start-column="30" selection-end-line="59" selection-end-column="30" />
+        <state relative-caret-position="-140">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
         </state>
       </provider>
     </entry>
