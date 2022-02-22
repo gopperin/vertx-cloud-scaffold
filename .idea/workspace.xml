@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cf366bb6-a0ac-4317-be38-bb2033aa403e" name="Default Changelist" comment="" />
+    <list default="true" id="cf366bb6-a0ac-4317-be38-bb2033aa403e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts.http" beforeDir="false" afterPath="$PROJECT_DIR$/scripts.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/resources/application.json" beforeDir="false" afterPath="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/resources/application.json" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/spring-cloud/spring-consumer/target/" />
     <ignored path="$PROJECT_DIR$/vertx-cloud/target/" />
     <ignored path="$PROJECT_DIR$/vertx-cloud/vertx-product/target/" />
@@ -19,17 +24,18 @@
     <session id="-1175074994">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="3" />
           <entry key="java" value="9" />
-          <entry key="json" value="1" />
+          <entry key="json" value="2" />
           <entry key="md" value="1" />
           <entry key="xml" value="3" />
           <entry key="yml" value="2" />
@@ -39,7 +45,7 @@
         <counts>
           <entry key="CLASS" value="3" />
           <entry key="JAVA" value="9" />
-          <entry key="JSON" value="1" />
+          <entry key="JSON" value="2" />
           <entry key="Markdown" value="1" />
           <entry key="XML" value="3" />
           <entry key="YAML" value="2" />
@@ -47,16 +53,16 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="976" />
-          <entry key="json" value="21" />
+          <entry key="java" value="1066" />
+          <entry key="json" value="49" />
           <entry key="xml" value="8" />
           <entry key="yml" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="976" />
-          <entry key="JSON" value="21" />
+          <entry key="JAVA" value="1066" />
+          <entry key="JSON" value="49" />
           <entry key="XML" value="8" />
           <entry key="YAML" value="12" />
         </counts>
@@ -64,12 +70,21 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-140">
-              <caret line="54" selection-start-line="54" selection-end-line="54" />
+            <state relative-caret-position="183">
+              <caret line="126" column="72" selection-start-line="126" selection-start-column="72" selection-end-line="126" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/resources/application.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="14" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -77,7 +92,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
+            <state relative-caret-position="975">
               <caret line="65" column="21" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
             </state>
           </provider>
@@ -109,9 +124,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/spring-cloud/spring-consumer/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/vertx-cloud/vertx-product/pom.xml" />
         <option value="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/resources/application.json" />
         <option value="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java" />
-        <option value="$PROJECT_DIR$/vertx-cloud/vertx-product/pom.xml" />
       </list>
     </option>
   </component>
@@ -140,8 +155,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -193,6 +208,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="gopper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vertx-cloud-scaffold" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vertx-cloud-scaffold" type="462c0819:PsiDirectoryNode" />
+              <item name="vertx-cloud" type="462c0819:PsiDirectoryNode" />
+              <item name="vertx-product" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -320,7 +344,7 @@
     <frame x="-1" y="0" width="1368" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19561933" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19864048" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -348,31 +372,12 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-service-discovery/4.2.4/vertx-service-discovery-4.2.4.jar!/io/vertx/servicediscovery/ServiceDiscovery.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-core/4.2.4/vertx-core-4.2.4.jar!/io/vertx/core/AsyncResult.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-service-discovery/4.2.4/vertx-service-discovery-4.2.4.jar!/io/vertx/servicediscovery/ServiceDiscovery.class" />
+    <entry file="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-core/4.2.4/vertx-core-4.2.4.jar!/io/vertx/core/AsyncResult.class" />
     <entry file="file://$PROJECT_DIR$/spring-cloud/spring-consumer/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
           <caret line="35" column="9" lean-forward="true" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/resources/application.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -407,15 +412,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
+        <state relative-caret-position="975">
           <caret line="65" column="21" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/resources/application.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-140">
-          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        <state relative-caret-position="183">
+          <caret line="126" column="72" selection-start-line="126" selection-start-column="72" selection-end-line="126" selection-end-column="72" />
         </state>
       </provider>
     </entry>

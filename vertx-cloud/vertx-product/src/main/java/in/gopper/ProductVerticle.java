@@ -55,6 +55,7 @@ public class ProductVerticle extends AbstractVerticle {
 
     private Pool pool;
     private WebClient webClient;
+    private String serviceId;
     private ConsulClient consulClient;
     //    private ServiceDiscovery discovery;
     private HttpServer server;
@@ -117,17 +118,26 @@ public class ProductVerticle extends AbstractVerticle {
     }
 
     @Override
-    public void stop(Promise<Void> stopPromise) {
-        System.out.println("ProductVerticle.stop (async)");
+    public void stop(Promise<Void> stopPromise) throws Exception {
 
-        consulClient.deregisterService("serviceId", res -> {
+        System.out.println("ProductVerticle.stop (async):" + serviceId);
+
+        consulClient.deregisterService(serviceId, res -> {
             if (res.succeeded()) {
                 System.out.println("Service successfully deregistered");
             } else {
                 System.out.println("Service error deregistered");
                 res.cause().printStackTrace();
             }
+
+            try {
+                super.stop(stopPromise);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         });
+
     }
 
     private void handleGetHealth(RoutingContext routingContext) {
@@ -304,6 +314,9 @@ public class ProductVerticle extends AbstractVerticle {
      * @param discoveryConfig
      */
     private void setUpConsul(String serviceAddress, Integer servicePort, JsonObject discoveryConfig) {
+
+        serviceId = discoveryConfig.getString("serviceId");
+
         ConsulClientOptions optConsul = new ConsulClientOptions()
                 .setHost(discoveryConfig.getString("host"))
                 .setPort(discoveryConfig.getInteger("port"));
@@ -314,10 +327,9 @@ public class ProductVerticle extends AbstractVerticle {
                 .setHttp(discoveryConfig.getString("health"))
                 .setInterval("5s");
 
-
         ServiceOptions opts = new ServiceOptions()
                 .setName(discoveryConfig.getString("serviceName"))
-                .setId("serviceId" + servicePort)
+                .setId(serviceId)
                 .setTags(Arrays.asList("tag", "port" + servicePort))
                 .setCheckOptions(optsCheck)
                 .setAddress(serviceAddress)
@@ -325,7 +337,7 @@ public class ProductVerticle extends AbstractVerticle {
 
         consulClient.registerService(opts, res -> {
             if (res.succeeded()) {
-                System.out.println("VertxService successfully registered");
+                System.out.println("VertxService successfully registered:" + serviceId);
             } else {
                 res.cause().printStackTrace();
             }

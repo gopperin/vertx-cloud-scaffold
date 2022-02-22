@@ -1,6 +1,7 @@
 {
   "port": 18001,
   "discovery": {
+    "serviceId": "vertx-service-18001",
     "serviceName": "vertx-service",
     "host": "127.0.0.1",
     "port": 8500,
