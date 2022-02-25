@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cf366bb6-a0ac-4317-be38-bb2033aa403e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts.http" beforeDir="false" afterPath="$PROJECT_DIR$/scripts.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/resources/application.json" beforeDir="false" afterPath="$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/resources/application.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/spring-cloud/spring-consumer/target/" />
     <ignored path="$PROJECT_DIR$/vertx-cloud/target/" />
@@ -24,11 +21,11 @@
     <session id="-1175074994">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.15" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.15" value="2" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -342,9 +339,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1368" height="743" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19864048" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20166163" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -410,10 +406,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/pom.xml">
+    <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="65" column="21" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
+        <state relative-caret-position="183">
+          <caret line="126" column="72" selection-start-line="126" selection-start-column="72" selection-end-line="126" selection-end-column="72" />
         </state>
       </provider>
     </entry>
@@ -424,10 +420,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/src/main/java/in/gopper/ProductVerticle.java">
+    <entry file="file://$PROJECT_DIR$/vertx-cloud/vertx-product/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="126" column="72" selection-start-line="126" selection-start-column="72" selection-end-line="126" selection-end-column="72" />
+        <state relative-caret-position="975">
+          <caret line="65" column="21" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
         </state>
       </provider>
     </entry>
