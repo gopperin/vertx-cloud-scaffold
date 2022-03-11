@@ -120,6 +120,16 @@ public class ProductVerticle extends AbstractVerticle {
     @Override
     public void stop(Promise<Void> stopPromise) throws Exception {
 
+        if (null != pool) {
+            pool.close();
+            System.out.println("Pool succcessfully closed");
+        }
+
+        if (null != webClient) {
+            webClient.close();
+            System.out.println("WebClient succcessfully closed");
+        }
+
         System.out.println("ProductVerticle.stop (async):" + serviceId);
 
         consulClient.deregisterService(serviceId, res -> {
